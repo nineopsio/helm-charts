@@ -1,0 +1,13 @@
+{{- if .Values.plugins.kubectl.enabled }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: {{ .Values.plugins.kubectl.role.kind }}
+  name: {{ .Values.plugins.kubectl.role.name }}
+subjects:
+- kind: ServiceAccount
+  name: agent
+{{- end }}

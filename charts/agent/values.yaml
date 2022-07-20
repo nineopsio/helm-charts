@@ -1,0 +1,68 @@
+# Default values for agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: agent
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+
+securityContext:
+  runAsNonRoot: true
+  fsGroup: 10001
+  runAsUser: 10001
+  runAsGroup: 10001
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+cors:
+  debug: false
+
+# Settings for Agent
+
+settings:
+  agentId: "0d78c5cf-1f23-9cbb-ec14-beec34b78112"
+  dnsNames:
+    - localhost
+  # TODO: Fix this mess of a config
+  backendAddr: backend.default.svc:8888
+  tunnelAddr: tunnel.default.svc:5223
+
+
+# Plugin Configuration
+
+plugins:
+  # Kubectl Plugin
+  kubectl:
+    enabled: true
+    role:
+      kind: ClusterRole
+      name: admin
+
+
+metrics:
+  enabled: true
+  service:
+    type: ClusterIP
+    port: 8888

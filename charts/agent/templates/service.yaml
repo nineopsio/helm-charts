@@ -1,0 +1,16 @@
+{{- if .Values.metrics.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-metrics
+  labels:
+    app: agent
+spec:
+  ports:
+  - name: http-metrics
+    port: {{ .Values.metrics.service.port }}
+    targetPort: 8081
+  type: {{ .Values.metrics.service.type }}
+  selector:
+    app: agent
+{{- end }}

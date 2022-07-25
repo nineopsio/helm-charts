@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   agent:
   - apiVersion: v2
+    appVersion: v0.3.1
+    created: "2022-07-25T15:30:29.374371458Z"
+    description: A Helm chart for Bee Agent
+    digest: be48dbd393ff4095719d2fd8a945203650ded009c4fb2eb9b14c4c5893603483
+    name: agent
+    type: application
+    urls:
+    - https://github.com/nineopsio/helm-charts/releases/download/agent-0.4.0/agent-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: v0.3.0
     created: "2022-07-21T11:50:54.792586026Z"
     description: A Helm chart for Bee Agent
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/nineopsio/helm-charts/releases/download/agent-0.1.0/agent-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-21T11:50:54.792596926Z"
+generated: "2022-07-25T15:30:29.374393058Z"

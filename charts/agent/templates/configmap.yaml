@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nineops-agent-config
+data:
+  AGENT_ID: {{ required "settings.id required" .Values.settings.id }}
+  BACKEND: {{ .Values.settings.backendAddr }}
+  BACKEND_PROTO: {{ .Values.settings.backendProto }}
+  BACKEND_WS_PROTO: {{ .Values.settings.backendWsProto }}
+  BACKEND_SOCKET_URI: /v1/agent/ws
+  BACKEND_HEALTH_URI: /healthz
+  ENABLE_TERMINAL: {{ .Values.settings.enableTerminal | quote }}
+  TUNNEL_HOST: {{ .Values.settings.tunnelAddr }}
+  TUNNEL_CERT_DIR: "/etc/backend/ssl"
+  METRICS_ADDR: "8081"
+  CORS_DEBUG: {{ .Values.cors.debug | quote }}

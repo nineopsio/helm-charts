@@ -42,13 +42,14 @@ cors:
 # Settings for Agent
 
 settings:
-  agentId: "0d78c5cf-1f23-9cbb-ec14-beec34b78112"
   dnsNames:
     - localhost
   # TODO: Fix this mess of a config
+  backendProto: https
+  backendWsProto: wss
   backendAddr: backend.default.svc:8888
   tunnelAddr: tunnel.default.svc:5223
-
+  enableTerminal: true
 
 # Plugin Configuration
 

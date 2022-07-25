@@ -1,38 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: agent
+  name: nineops-agent
 spec:
   selector:
     matchLabels:
-      app: agent
+      app: nineops-agent
   template:
     metadata:
       labels:
-        app: agent
+        app: nineops-agent
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: agent
+      serviceAccountName: nineops-agent
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       containers:
-      - name: agent
+      - name: nineops-agent
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-        - name: AGENT_ID
-          value: {{ .Values.settings.agentId }}
-        - name: HOST_ADDR
-          value: {{ .Values.settings.backendAddr }}
-        - name: TUNNEL_ADDR
-          value: {{ .Values.settings.tunnelAddr }}
-        - name: TUNNEL_HOST
-          value: {{ required "settings.id required" .Values.settings.id }}
-        - name: CORS_DEBUG
-          value: {{ .Values.cors.debug | quote }}
+        envFrom:
+        - configMapRef:
+            name: nineops-agent-config
         ports:
         - containerPort: 8081
           protocol: TCP
@@ -41,12 +33,12 @@ spec:
           {{- toYaml .Values.resources | nindent 12 }}
         volumeMounts:
           - mountPath: "/etc/backend/ssl"
-            name: cert-volume
+            name: nineops-cert-volume
             readOnly: true
       volumes:
-      - name: cert-volume
+      - name: nineops-cert-volume
         secret:
-          secretName: client-secret
+          secretName: nineops-client-secret
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

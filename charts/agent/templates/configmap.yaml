@@ -12,5 +12,6 @@ data:
   ENABLE_TERMINAL: {{ .Values.settings.enableTerminal | quote }}
   TUNNEL_HOST: {{ .Values.settings.tunnelAddr }}
   TUNNEL_CERT_DIR: "/etc/backend/ssl"
+  TUNNEL_CLIENT_LOG_LEVEL: "1"
   METRICS_ADDR: "8081"
   CORS_DEBUG: {{ .Values.cors.debug | quote }}
